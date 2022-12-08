@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
-"""method that determines if all the boxes can be opened"""
+#!/usr/bin/python3
+"""module that contains the canUnlockAll method"""
 
 
 def canUnlockAll(boxes):
-    """function that determines if all the boxes can be opened
+    """method that determines if all the boxes can be opened
        A key with the same number as a box opens that box
         Args:
             boxes is a list of lists
