@@ -1,6 +1,5 @@
 #include "binary_trees.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 /**
  * heap_insert - inserts a value into a Max Binary Heap
@@ -13,6 +12,9 @@ heap_t *heap_insert(heap_t **root, int value)
 	int tmp;
 	heap_t *new;
 
+	if (root == NULL)
+		return (NULL);
+
 	/*address stored in root is NULL*/
 	if (*root == NULL)
 	{
@@ -24,7 +26,7 @@ heap_t *heap_insert(heap_t **root, int value)
 	new = _insert(*root, value);
 
 	if (new == NULL)
-		return(NULL);
+		return (NULL);
 
 	/*
 	* Max Heap ordering: if perfect tree, insert left. Otherwise, full it.
