@@ -9,7 +9,7 @@
 heap_t *heap_insert(heap_t **root, int value)
 {
 	int tmp;
-	heap_t *new;
+	heap_t *new, *node;
 
 	if (root == NULL)
 		return (NULL);
@@ -27,6 +27,7 @@ heap_t *heap_insert(heap_t **root, int value)
 
 	/*insert in root*/
 	new->parent = _insert(*root, new);
+	node = new->parent;
 
 	/*
 	* Max Heap ordering: if perfect tree, insert left. Otherwise, full it.
@@ -41,7 +42,7 @@ heap_t *heap_insert(heap_t **root, int value)
 		new = new->parent;
 	}
 
-	return (new);
+	return (node);
 }
 
 /**
