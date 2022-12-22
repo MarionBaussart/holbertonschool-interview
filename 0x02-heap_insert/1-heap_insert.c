@@ -2,6 +2,8 @@
 
 /**
  * heap_insert - inserts a value into a Max Binary Heap
+ * Max Heap ordering: if perfect tree, insert left. Otherwise, full it.
+ * new node value always < to their parent value
  * @root: double pointer to the root node of the Heap
  * @value: value to store in the node to be inserted
  * Return: pointer to the inserted node, or NULL on failure
@@ -18,20 +20,14 @@ heap_t *heap_insert(heap_t **root, int value)
 	if (new == NULL)
 		return (NULL);
 
-	/*address stored in root is NULL*/
 	if (*root == NULL)
 	{
 		*root = new;
 		return (new);
 	}
 
-	/*insert in root*/
 	new->parent = _insert(*root, new);
 
-	/*
-	* Max Heap ordering: if perfect tree, insert left. Otherwise, full it.
-	* new node value always < to their parent value
-	*/
 	while (new->parent && new->n > new->parent->n)
 	{
 		tmp = new->parent->n;
