@@ -16,30 +16,31 @@ heap_t *heap_insert(heap_t **root, int value)
 	if (root == NULL)
 		return (NULL);
 
-	new = binary_tree_node(NULL, value);
-	if (new == NULL)
-		return (NULL);
-
 	/*address stored in root is NULL*/
 	if (*root == NULL)
 	{
-		*root = new;
-		return (new);
+		*root = binary_tree_node(NULL, value);
+		return (*root);
 	}
 
 	/*insert in root*/
-	new->parent = _insert(*root, new);
+	new = _insert(*root, value);
+
+	if (new == NULL)
+		return (NULL);
 
 	/*
 	* Max Heap ordering: if perfect tree, insert left. Otherwise, full it.
 	* new node value always < to their parent value
 	*/
-	while (new->parent && new->n > new->parent->n)
+	while (new->parent)
 	{
-		tmp = new->parent->n;
-		new->parent->n = new->n;
-		new->n = tmp;
-
+		if (new->n > new->parent->n)
+		{
+			tmp = new->parent->n;
+			new->parent->n = new->n;
+			new->n = tmp;
+		}
 		new = new->parent;
 	}
 
@@ -52,9 +53,9 @@ heap_t *heap_insert(heap_t **root, int value)
  * @value: value to store in the node to be inserted
  * Return: pointer to the inserted node, or NULL on failure
  */
-heap_t *_insert(heap_t *tree, heap_t *new)
+heap_t *_insert(heap_t *tree, int value)
 {
-	size_t nb_nodes;
+	size_t nb_nodes = 0;
 	heap_t *parent;
 
 	if (tree == NULL)
@@ -62,13 +63,28 @@ heap_t *_insert(heap_t *tree, heap_t *new)
 
 	nb_nodes = binary_tree_size(tree);
 	parent = find_parent(tree, 0, (nb_nodes - 1) / 2);
+	printf("parent n: %d", parent->n);
 
 	if (parent->left == NULL)
-		parent->left = new;
+	{
+		parent->left = binary_tree_node(tree, value);
+		return (parent->left);
+	}
+	else if (parent->right == NULL)
+	{
+		parent->right = binary_tree_node(tree, value);
+		return (parent->right);
+	}
 	else
-		parent->right = new;
-
-	return (parent);
+	{
+		if (tree->left)
+		{
+			while (tree->left)
+				tree = tree->left;
+		}
+		tree->left = binary_tree_node(tree, value);
+		return (tree->left);
+	}
 }
 
 /**
@@ -104,16 +120,16 @@ heap_t *find_parent(heap_t *tree, int index, int nb_nodes)
 	if (index == nb_nodes)
 		return (tree);
 
-	if (index > nb_nodes)
+	if (index >= nb_nodes)
 		return (NULL);
 
 	left_child = find_parent(tree->left, 2 * index + 1, nb_nodes);
 	right_child = find_parent(tree->right, 2 * index + 2, nb_nodes);
 
 	if (left_child)
-		return (left_child);
+		return (left_child->parent);
 	else if (right_child)
-		return (right_child);
+		return (right_child->parent);
 	else
 		return (NULL);
 }

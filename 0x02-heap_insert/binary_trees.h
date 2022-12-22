@@ -24,7 +24,7 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
 typedef struct binary_tree_s heap_t;
 heap_t *heap_insert(heap_t **root, int value);
-heap_t *_insert(heap_t *tree, int value);
+heap_t *_insert(heap_t *tree, heap_t *new);
 size_t binary_tree_size(const heap_t *tree);
 heap_t *find_parent(heap_t *tree, int index, int nb_nodes);
 
