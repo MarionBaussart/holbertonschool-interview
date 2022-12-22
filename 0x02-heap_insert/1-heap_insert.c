@@ -1,5 +1,4 @@
 #include "binary_trees.h"
-#include <stdlib.h>
 
 /**
  * heap_insert - inserts a value into a Max Binary Heap
