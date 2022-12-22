@@ -28,7 +28,6 @@ heap_t *heap_insert(heap_t **root, int value)
 	/*insert in root*/
 	new->parent = _insert(*root, new);
 
-
 	/*
 	* Max Heap ordering: if perfect tree, insert left. Otherwise, full it.
 	* new node value always < to their parent value
@@ -48,7 +47,7 @@ heap_t *heap_insert(heap_t **root, int value)
 /**
  * _insert - inserts a value into a Binary Tree
  * @tree: pointer to the root node
- * @value: value to store in the node to be inserted
+ * @new: pointer to the new node
  * Return: pointer to the inserted node, or NULL on failure
  */
 heap_t *_insert(heap_t *tree, heap_t *new)
