@@ -13,15 +13,14 @@ def minOperations(n):
         Return:
             the fewest number of operations needed
     """
-    if n <= 1:
-        return 0
-    a = 1
-    b = 1
-    while a <= b:
-        for i in range(1, n):
-            if n % i == 0:
-                a = i
-                b = n / i
-                if a == b or a > b:
-                    return int(a + b)
-        return n
+    i = 2
+    list_prime_factors = []
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            list_prime_factors.append(i)
+    if n > 1:
+        list_prime_factors.append(n)
+    return sum(list_prime_factors)
