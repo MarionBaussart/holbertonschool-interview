@@ -9,40 +9,30 @@
  */
 int is_palindrome(listint_t **head)
 {
-	listint_t *h = *head;
-	listint_t *tab = *head;
-	int lenght = 0, index = 0;
-	int tab_head[100];
-	int tab_reversed_head[100];
-
-	if (head == NULL)
+	if (*head == NULL)
 		return (1);
 
-	/*calculate the lenght of the singly list*/
-	while (h)
-	{
-		h = h->next;
-		lenght++;
-	}
-	if (lenght == 1)
-		return (1);
+	return (is_palindrome_recursive(head, *head));
+}
 
-	/*put into array and reversed array*/
-	while (tab)
+/**
+ * is_palindrome_recursive - checks if a singly linked list is a palindrome
+ * 		with recursion
+ * @left: pointer to left of list
+ * @right: pointer to right of list
+ * Return: 0 if it is not a palindrome, 1 if it is a palindrome
+ */
+int is_palindrome_recursive(listint_t **left, listint_t *right)
+{
+	if (right->next)
 	{
-		tab_head[index] = tab->n;
-		tab_reversed_head[lenght - index - 1] = tab->n;
-		index++;
-		tab = tab->next;
-	}
-
-	/*comparaison of the two arrays*/
-	index = 0;
-	while (index <= (lenght / 2))
-	{
-		if (tab_head[index] != tab_reversed_head[index])
+		if (is_palindrome_recursive(left, right->next))
+			(*left) = (*left)->next;
+		else
 			return (0);
-		index++;
 	}
-	return (1);
+	if ((*left)->n == right->n)
+		return (1);
+
+	return (0);
 }
