@@ -12,8 +12,6 @@ status_code_dict = {"200": 0, "301": 0, "400": 0, "401": 0,
 try:
     for line in sys.stdin:
         splited_line = line.split()
-        if len(splited_line) != 9:
-            pass
 
         # get sum of size
         size_line = int(splited_line[-1])
@@ -30,17 +28,16 @@ try:
 
         if nb_line_read % 10 == 0:
             print("File size: {}".format(total_size))
-            for status_code in status_code_dict:
+            for status_code in sorted(status_code_dict):
                 if status_code_dict[status_code] != 0:
                     print("{}: {}".format(status_code,
                                           status_code_dict[status_code]))
 
 except KeyboardInterrupt:
-    raise
+    pass
 
-finally:
-    print("File size: {}".format(total_size))
-    for status_code in status_code_dict:
-        if status_code_dict[status_code] != 0:
-            print("{}: {}".format(status_code,
-                                  status_code_dict[status_code]))
+print("File size: {}".format(total_size))
+for status_code in sorted(status_code_dict):
+    if status_code_dict[status_code] != 0:
+        print("{}: {}".format(status_code,
+                              status_code_dict[status_code]))
