@@ -20,6 +20,7 @@ try:
             size_line = int(splited_line[-1])
             total_size += size_line
 
+            # get status code
             status_code_line = int(splited_line[-2])
 
             if status_code_line not in status_code_dict.keys():
