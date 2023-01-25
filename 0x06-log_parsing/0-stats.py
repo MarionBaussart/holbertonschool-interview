@@ -16,14 +16,15 @@ try:
             pass
 
         # get sum of size
-        size_line = int(splited_line[8])
+        size_line = int(splited_line[-1])
         total_size += size_line
 
         # nb of line by status code
-        status_code_line = splited_line[7]
-        for status_code in status_code_dict:
+        status_code_line = splited_line[-2]
+        for status_code in sorted(status_code_dict):
             if status_code_line == status_code:
                 status_code_dict[status_code_line] += 1
+                status_code_dict
 
         nb_line_read += 1
 
