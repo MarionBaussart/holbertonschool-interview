@@ -35,7 +35,7 @@ try:
                                           status_code_dict[status_code]))
 
 except KeyboardInterrupt:
-    pass
+    raise
 
 finally:
     print("File size: {}".format(total_size))
