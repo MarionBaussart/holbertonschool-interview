@@ -12,16 +12,14 @@ status_code_dict = {200: 0, 301: 0, 400: 0, 401: 0,
 
 try:
     for line in sys.stdin:
-        splited_line = line.split()
-
-        # get sum of size
-        size_line = int(splited_line[-1])
-        total_size += size_line
-
         nb_line_read += 1
 
-        # nb of line by status code
         try:
+            splited_line = line.split()
+            # get sum of size
+            size_line = int(splited_line[-1])
+            total_size += size_line
+
             status_code_line = int(splited_line[-2])
 
             if status_code_line not in status_code_dict.keys():
@@ -34,8 +32,6 @@ try:
             pass
 
         if nb_line_read % 10 == 0:
-
-
             print("File size: {}".format(total_size))
             for status_code in sorted(status_code_dict):
                 if status_code_dict[status_code] != 0:
