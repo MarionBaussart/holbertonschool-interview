@@ -11,18 +11,22 @@ def validUTF8(data):
     Args:
         data: data set represented by a list of integers
     Return: True if data is a valid UTF-8 encoding, else return False
+    10001100 : 1st digit = 0, 2nd digit = 0, ...
     """
     i = 0
     while i < len(data):
-        if data[i] > 247 or data[i] < 0:
+        # print("{0:b}".format(data[i]))
+        # print("{0:b}".format(data[i] >> 4))
+        # print("{0:b}".format((data[i] >> 4) & 15))
+        if data[i] < 0:
             return False
 
-        # 0000 0000 to 1011 1111
-        if data[i] <= 191:
+        # digit 5 to 8: 0000 to 1011
+        if 0 <= ((data[i] >> 4) & 15) <= 11:
             i += 1
 
-        # 1100 0000 to 1101 1111
-        elif 192 <= data[i] <= 223:
+        # digit 5 to 8: 1100 to 1101
+        elif 12 <= ((data[i] >> 4) & 15) <= 13:
             if i + 1 < len(data):
                 # 1000 0000 to 1011 1111
                 if 128 <= data[i + 1] <= 191:
@@ -32,8 +36,8 @@ def validUTF8(data):
             else:
                 return False
 
-        # 1110 0000 to 1110 1111
-        elif 224 <= data[i] <= 239:
+        # digit 5 to 8: 1110
+        elif ((data[i] >> 4) & 15) == 14:
             if i + 2 < len(data):
                 # 1000 0000 to 1011 1111
                 if 128 <= data[i + 1] <= 191 and 128 <= data[i + 2] <= 191:
@@ -43,8 +47,8 @@ def validUTF8(data):
             else:
                 return False
 
-        # 1111 0000 to 1111 0111
-        elif 240 <= data[i] <= 247:
+        # digit 5 to 8: 1111
+        elif ((data[i] >> 4) & 15) == 15:
             if i + 3 < len(data):
                 # 1000 0000 to 1011 1111
                 if 128 <= data[i + 1] <= 191 and \
