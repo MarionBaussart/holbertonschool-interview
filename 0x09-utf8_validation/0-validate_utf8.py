@@ -54,7 +54,8 @@ def validUTF8(data):
                     8 <= data[i + 2] >> 4 <= 11 and \
                     8 <= data[i + 3] >> 4 <= 11 and \
                     0 <= data[i + 1] <= 255 and \
-                        0 <= data[i + 2] <= 255:
+                    0 <= data[i + 2] <= 255 and \
+                        0 <= data[i + 3] <= 255:
                     i += 4
                 else:
                     return False
