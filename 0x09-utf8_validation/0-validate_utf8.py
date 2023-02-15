@@ -48,7 +48,7 @@ def validUTF8(data):
                 return False
 
         # digit 5 to 8: 1111
-        elif ((data[i] >> 4) & 15) == 15:
+        elif ((data[i] >> 3) & 31) == 30:
             if i + 3 < len(data):
                 # 1000 0000 to 1011 1111
                 if 128 <= data[i + 1] <= 191 and \
@@ -59,5 +59,8 @@ def validUTF8(data):
                     return False
             else:
                 return False
+
+        else:
+            return False
 
     return True
