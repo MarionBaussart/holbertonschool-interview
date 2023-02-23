@@ -12,33 +12,29 @@
  *
  * Return: no return
  */
-void slide_number_left(int *line, size_t size, int direction)
+void slide_number_left(int *line, size_t size)
 {
 	size_t i, j;
 
-	/*SLIDE_LEFT*/
-	if (direction == 0)
+	i = 0, j = 1;
+	while (i < size - 1)
 	{
-		i = 0, j = 1;
-		while (i < size)
+		if (line[i] == 0)
 		{
-			if (line[i] == 0)
+			while (j < size - 1)
 			{
-				while (j < size)
-				{
-					if (line[j] == 0)
-						j++;
-					else
-						break;
-				}
-				if (j < size)
-					line[i] = line[j];
-				line[j] = 0;
+				if (line[j] == 0)
+					j++;
+				else
+					break;
 			}
-			i++;
 			if (j < size)
-				j++;
+				line[i] = line[j];
+			line[j] = 0;
 		}
+		i++;
+		if (j < size)
+			j++;
 	}
 }
 
@@ -53,33 +49,30 @@ void slide_number_left(int *line, size_t size, int direction)
  *
  * Return: no return
  */
-void slide_number_right(int *line, size_t size, int direction)
+void slide_number_right(int *line, size_t size)
 {
 	size_t i, j;
 
-	/*SLIDE_RIGHT*/
-	if (direction == 1)
+	i = size - 1, j = size - 2;
+
+	while (i + 1 > 0)
 	{
-		i = size - 1, j = size - 2;
-		while (i + 1 > 0)
+		if (line[i] == 0)
 		{
-			if (line[i] == 0)
+			while (j + 1 > 0)
 			{
-				while (j + 1 > 0)
-				{
-					if (line[j] == 0)
-						j--;
-					else
-						break;
-				}
-				if (j + 1 > 0)
-					line[i] = line[j];
-				line[j] = 0;
+				if (line[j] == 0)
+					j--;
+				else
+					break;
 			}
-			i--;
 			if (j + 1 > 0)
-				j--;
+				line[i] = line[j];
+			line[j] = 0;
 		}
+		i--;
+		if (j + 1 > 0)
+			j--;
 	}
 }
 
@@ -109,7 +102,6 @@ void merge_number(int *line, size_t size, int direction)
 			}
 			i++;
 		}
-		slide_number_left(line, size, direction);
 	}
 
 	if (direction == 1)
@@ -124,7 +116,6 @@ void merge_number(int *line, size_t size, int direction)
 			}
 			i--;
 		}
-		slide_number_right(line, size, direction);
 	}
 }
 
@@ -145,14 +136,15 @@ int slide_line(int *line, size_t size, int direction)
 		return (0);
 	if (direction == 0)
 	{
-		slide_number_left(line, size, direction);
+		slide_number_left(line, size);
 		merge_number(line, size, direction);
+		slide_number_left(line, size);
 	}
-
 	if (direction == 1)
 	{
-		slide_number_right(line, size, direction);
+		slide_number_right(line, size);
 		merge_number(line, size, direction);
+		slide_number_right(line, size);
 	}
 	return (1);
 }
