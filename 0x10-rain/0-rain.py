@@ -18,6 +18,8 @@ def rain(walls):
     i = 0
     rain = 0
     while i < len(walls):
+        if walls[i] < 0:
+            return 0
         if walls[i] != 0 and i != len(walls) - 1:
             left_wall = walls[i]
             left_index = i
