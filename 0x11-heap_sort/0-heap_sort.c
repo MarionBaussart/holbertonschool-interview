@@ -27,6 +27,8 @@ void heap_sort(int *array, size_t size)
  * swap - swap the position of two elements
  * @a: first element to swap
  * @b: second element to swap
+ * @array: array concerned
+ * @lenght_array: lenght of the array
  * Return: no return
  */
 void swap(int *a, int *b, int *array, int lenght_array)
