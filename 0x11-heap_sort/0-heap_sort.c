@@ -13,13 +13,15 @@ void heap_sort(int *array, size_t size)
 	int i;
 	int lenght_array = size;
 
-	for (i = size / 2 - 1; i >= 0; i--)
-		heapify(array, size, i, lenght_array);
+	if (array != NULL && size != 0) {
+		for (i = size / 2 - 1; i >= 0; i--)
+			heapify(array, size, i, lenght_array);
 
-	for (i = size - 1; i >= 0; i--)
-	{
-		swap(&array[0], &array[i], array, lenght_array);
-		heapify(array, i, 0, lenght_array);
+		for (i = size - 1; i >= 0; i--)
+		{
+			swap(&array[0], &array[i], array, lenght_array);
+			heapify(array, i, 0, lenght_array);
+		}
 	}
 }
 
