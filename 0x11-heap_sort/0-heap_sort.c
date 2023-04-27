@@ -18,8 +18,7 @@ void heap_sort(int *array, size_t size)
 
 	for (i = size - 1; i >= 0; i--)
 	{
-		swap(&array[0], &array[i]);
-		print_array(array, lenght_array);
+		swap(&array[0], &array[i], array, lenght_array);
 		heapify(array, i, 0, lenght_array);
 	}
 }
@@ -30,10 +29,11 @@ void heap_sort(int *array, size_t size)
  * @b: second element to swap
  * Return: no return
  */
-void swap(int *a, int *b)
+void swap(int *a, int *b, int *array, int lenght_array)
 {
 	int temp = *a;
 
+	print_array(array, lenght_array);
 	*a = *b;
 	*b = temp;
 }
@@ -60,8 +60,7 @@ void heapify(int *array, int size, int i, int lenght_array)
 
 	if (largest != i)
 	{
-		swap(&array[i], &array[largest]);
-		print_array(array, lenght_array);
+		swap(&array[i], &array[largest], array, lenght_array);
 		heapify(array, size, largest, lenght_array);
 	}
 }
