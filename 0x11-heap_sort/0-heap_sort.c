@@ -13,7 +13,8 @@ void heap_sort(int *array, size_t size)
 	int i;
 	int lenght_array = size;
 
-	if (array != NULL && size != 0) {
+	if (array != NULL && size != 0)
+	{
 		for (i = size / 2 - 1; i >= 0; i--)
 			heapify(array, size, i, lenght_array);
 
